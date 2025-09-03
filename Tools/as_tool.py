@@ -63,6 +63,7 @@ french_agent = Agent(
        model=model
 )
 
+
 orchestrator_agent = Agent(
     name="Orchestrator agent",
     instructions=(
@@ -72,7 +73,7 @@ orchestrator_agent = Agent(
     tools=[
         spanish_agent.as_tool(
             tool_name="translate_to_spanish",
-            tool_description="Translate any input into Spanish only. Do not explain, just translate."
+            tool_description="Translate any input into Spanish only. Do not explain, just translate.",
         ),
         french_agent.as_tool(
             tool_name="translate_to_french",
@@ -83,7 +84,7 @@ orchestrator_agent = Agent(
 )
 
 def prompt()-> str :
-    return "hello how are you? translate in urdu"
+    return "hello how are you? translate in spanish"
 
 
 # agent = Agent(name="Assistant",instructions="you are helpful Assistant. i give you some tool if any prompt related to tool topic you must use that tool otherwise you answer the prompt according to prompt")

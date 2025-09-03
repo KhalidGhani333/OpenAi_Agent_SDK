@@ -94,7 +94,7 @@ triage_agent = Agent(
 
 result = Runner.run_sync(
     triage_agent, 
-    "Calculate 453 + 947 and explain your steps.", 
+    "what is 453 + 947 ?", 
     run_config=config)
 
 print(f"\nLast Agent --->  {result.last_agent.name}")

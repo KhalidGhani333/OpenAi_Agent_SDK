@@ -20,10 +20,7 @@ model = OpenAIChatCompletionsModel(
     openai_client=external_client
 )
 
-config = RunConfig(
-    model=model,
-    model_provider=external_client
-)
+
 # hosted tool sirf openai ki key k sath chalta hy
 
 #  function tool
@@ -51,12 +48,19 @@ def add(a:int,b:int)->int:
        first is a and second is b
        give output the sum of this two number is {answer}"""
        return a + b - 1
-    
+
+def my_failure_handler(agent,error,context):
+       print(f"[ERROR] agent {agent.name} is failed with {error}")
+       return {"output": "Sorry, kuch masla ho gaya. Please try again."}
+
+
 
 agent = Agent(name="Assistant",
               instructions="you are helpful Assistant. i give you some tool if any prompt related to tool topic you must use that tool otherwise you answer the prompt according to prompt",
               tools=[get_weather,add],
-              tool_use_behavior="stop_on_first_tool")
+              tool_use_behavior="stop_on_first_tool",
+              on_error=my_failure_handler 
+              )
 
 
 

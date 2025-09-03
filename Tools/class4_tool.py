@@ -106,15 +106,17 @@ def multiply(a:int,b:int)->int:
        print("Multiply Tool Fire ---->")
        return a * b
 
-
+def my_failure_handler(agent,error,context):
+       print(f"[ERROR] agent {agent.name} is failed with {error}")
+       return {"output": "Sorry, kuch masla ho gaya. Please try again."}
 
 
 agent = Agent(name="Assistant",
               instructions="you are helpful Math teacher.",
               tools=[add,substruct,multiply],
-              tool_use_behavior=StopAtTools(stop_at_tool_names=["add","multiply"]),
+              tool_use_behavior=StopAtTools(stop_at_tool_names=["multiply"]),
               # tool_use_behavior="stop_on_first_tool",
-              model_settings=ModelSettings(tool_choice="plus_tool"),
+              # model_settings=ModelSettings(tool_choice="plus_tool"),
               # reset_tool_choice=False
               )
 
@@ -123,7 +125,7 @@ user = {"name":"khalid","age":19,"isPremium":"True"}
 
 async def main():
         result = await Runner.run(agent,
-              "3*10?",
+              "10+10*3",
               run_config=config,
               context=user,
               # max_turns=3
